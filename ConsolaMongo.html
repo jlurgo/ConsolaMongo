@@ -11,7 +11,7 @@
 -->
 		<input id="btn_ejecutar" type="button" value="ejecutar"/>
 
-		<div id="div_resultados"></div>
+		<pre id="div_resultados"></pre>
 	</body>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 	<script type="text/javascript" src="underscore-min.js"></script>
@@ -24,7 +24,7 @@
 					type: "GET",
 					contentType: "application/json",
 					success: function (responseData, textStatus, jqXHR) {
-						$("#div_resultados").text(JSON.stringify(responseData, null, "\t"));
+						$("#div_resultados").text(JSON.stringify(responseData, null, 2));
 						console.log(responseData);
 					}
 				});				
