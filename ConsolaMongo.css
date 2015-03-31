@@ -21,6 +21,7 @@
 	right: 5px;
 	bottom: 5px;
 	border: black solid 1px;
+	overflow: auto;
 }
 
 #lbl_key {
