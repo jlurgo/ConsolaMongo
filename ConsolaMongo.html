@@ -20,7 +20,7 @@
 			$("#btn_ejecutar").click(function(){
 				var opt = JSON.parse($("#txt_query").val());
 				$.ajax( { 
-					url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q="'+JSON.stringify(opt.q)+'"',
+					url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
 					type: "GET",
 					contentType: "application/json",
 					success: function (responseData, textStatus, jqXHR) {
