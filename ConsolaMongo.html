@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Consola Mongo</title>
+		<link rel="stylesheet" href="ConsolaMongo.css"/>
+	</head>
+	<body>
+		<textarea id="txt_query"></textarea>
+<!--
+		<div id="lbl_key">Key:</div>
+		<input id="txt_key" type="text"/>
+-->
+		<input id="btn_ejecutar" type="button" value="ejecutar"/>
+
+		<div id="div_resultados"></div>
+	</body>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+	<script type="text/javascript" src="underscore-min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#btn_ejecutar").click(function(){
+				var opt = JSON.parse($("#txt_query").val());
+				$.ajax( { 
+					url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q="'+JSON.stringify(opt.q)+'"',
+					type: "GET",
+					contentType: "application/json",
+					success: function (responseData, textStatus, jqXHR) {
+						console.log(responseData);
+					}
+				});				
+			});			
+		});
+	</script>
+</html>

@@ -1,0 +1,38 @@
+
+#txt_query {
+	position: absolute;
+	top:5px;
+	left:5px;
+	right:5px;
+	height: 100px;
+	width: 99%;
+}
+
+#btn_ejecutar {
+	position: absolute;
+	right: 5px;
+	top: 110px;
+}
+
+#div_resultados {
+	position: absolute;
+	top:150px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	border: black solid 1px;
+}
+
+#lbl_key {
+	position: absolute;
+	left:5px;
+	top:110px;
+}
+
+#txt_key {
+	position: absolute;
+	left:50px;
+	top: 110px;
+	right: 50px;
+	width: 90%;
+}
