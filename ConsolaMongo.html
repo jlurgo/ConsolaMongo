@@ -24,7 +24,7 @@
 					type: "GET",
 					contentType: "application/json",
 					success: function (responseData, textStatus, jqXHR) {
-						console.log(responseData);
+						$("#div_resultados").text(JSON.stringify(responseData));
 					}
 				});				
 			});			
