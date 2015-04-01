@@ -4,7 +4,8 @@
 		<link rel="stylesheet" href="ConsolaMongo.css"/>
 	</head>
 	<body>
-		<textarea id="txt_query"></textarea>
+		<textarea id="txt_query" placeholder="query"></textarea>
+		<textarea id="txt_update" placeholder="update"></textarea>
 <!--
 		<div id="lbl_key">Key:</div>
 		<input id="txt_key" type="text"/>
@@ -19,15 +20,64 @@
 		$(function(){
 			$("#btn_ejecutar").click(function(){
 				var opt = JSON.parse($("#txt_query").val());
-				$.ajax( { 
-					url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
-					type: "GET",
-					contentType: "application/json",
-					success: function (responseData, textStatus, jqXHR) {
-						$("#div_resultados").text(JSON.stringify(responseData, null, 2));
-						console.log(responseData);
-					}
-				});				
+				if(!opt.db) {
+					$.ajax( { 
+						url: 'https://api.mongolab.com/api/1/databases?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
+						type: "GET",
+						contentType: "application/json",
+						success: function (responseData, textStatus, jqXHR) {
+							$("#div_resultados").text(JSON.stringify(responseData, null, 2));
+							console.log(responseData);
+						}
+					});	
+					return;
+				}
+				
+				if(!opt.col) {
+					$.ajax( { 
+						url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
+						type: "GET",
+						contentType: "application/json",
+						success: function (responseData, textStatus, jqXHR) {
+							$("#div_resultados").text(JSON.stringify(responseData, null, 2));
+							console.log(responseData);
+						}
+					});	
+					return;
+				}
+				if(!opt.q) opt.q ={};
+				if($("#txt_update").val()==""){
+					$.ajax( { 
+						url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
+						type: "GET",
+						contentType: "application/json",
+						success: function (responseData, textStatus, jqXHR) {
+							$("#div_resultados").text(JSON.stringify(responseData, null, 2));
+							console.log(responseData);
+						}
+					});		
+				}
+				else{
+					$.ajax( { 
+						url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&m=true'+'&q='+JSON.stringify(opt.q),
+						//data: '{ "$set" :'+ $("#txt_update").val() +'}',
+						data: $("#txt_update").val(),
+		  				type: "PUT",
+						contentType: "application/json",
+						success: function (responseData, textStatus, jqXHR) {
+							$.ajax( { 
+								url: 'https://api.mongolab.com/api/1/databases/'+ opt.db +'/collections/'+ opt.col +'?apiKey='+opt.k+'&q='+JSON.stringify(opt.q)+'',
+								type: "GET",
+								contentType: "application/json",
+								success: function (responseData, textStatus, jqXHR) {
+									$("#div_resultados").text(JSON.stringify(responseData, null, 2));
+									console.log(responseData);
+								}
+							});		
+						}
+					});	
+				}
+							
 			});			
 		});
 	</script>
